@@ -16,7 +16,7 @@
  * 		maxlenght="3" data-auto-advance-to="NEXT_FIELD_ID" />
  * 
  **/
-;(function( $, UNDEFINED ){
+;(function( $, UA, UNDEFINED ){
 	
 	var script_name = 'auto-advance-to',
 		data_attr = '[data-' + script_name + ']',
@@ -56,7 +56,7 @@
 				return false;
 			}
 			// otherwise focus it and insert the value
-			$next.focus();
+			sendFocus( $field, $next );
 		}
 		
 	});
@@ -113,4 +113,24 @@
 		return a;
 	}
 	
-}( jQuery ));
+	function sendFocus( $from, $to )
+	{
+		var iOS = UA.toLowerCase().match(/i(pad|phone|pod)/);
+		
+		// Mobile Safari has a bug/feature that does not allow for focus to be moved
+		if ( iOS )
+		{
+			sendFocus = function(){};
+		}
+		else
+		{
+			sendFocus = function( $from, $to )
+			{
+				$to.focus();
+			};
+		}
+		
+		sendFocus( $from, $to );
+	}
+	
+}( jQuery, navigator.userAgent ));
