@@ -83,17 +83,24 @@
 	
 	function has_text_selected( el )
 	{
-		if ( typeof el.selectionStart == "number" )
-		{
-			return ( el.selectionStart >= 0 &&
-					 el.selectionEnd <= el.value.length &&
-					 el.selectionEnd - el.selectionStart > 0 );
-		}
-		else if ( typeof document.selection != "undefined" )
-		{
-			var text = document.selection.createRange().text;
-			return ( text.length &&
-					 el.value.indexOf( text ) > -1 );
+		try {
+			// number handling
+			if ( typeof el.selectionStart == "number" )
+			{
+				return ( el.selectionStart >= 0 &&
+						 el.selectionEnd <= el.value.length &&
+						 el.selectionEnd - el.selectionStart > 0 );
+			}
+			// everything else
+			else if ( typeof document.selection != "undefined" )
+			{
+				var text = document.selection.createRange().text;
+				return ( text.length &&
+						 el.value.indexOf( text ) > -1 );
+			}
+		} catch(e) {
+			// Chrome stopped supporting selectionStart in number fields
+			return false;
 		}
 	};
 	
