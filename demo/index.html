@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+
+	  <meta charset="UTF-8">
+
+	  <!--
+	Copyright (c) 2014 by Aaron Gustafson (http://codepen.io/aarongustafson/pen/CervH)
+
+	Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+	The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+	-->
+
+	  <title>Easy Field Auto-advance Demo</title>
+
+	  <style>
+			body {
+			  padding: 1em;
+			}
+
+			fieldset {
+			  border: 0;
+			  padding: 0;
+			}
+
+			legend {
+			  font-weight: bold;
+			}
+
+			.fake-field {
+			  border: 1px solid gray;
+			  list-style: none;
+			  padding: .25em;
+			  max-width: 200px;
+			}
+
+			.fake-field li {
+			  display: inline;
+			}
+
+			.fake-field label {
+			  position: absolute;
+			  height: 1px;
+			  width: 1px;
+			  overflow: hidden;
+			  clip: rect(1px, 1px, 1px, 1px);
+			}
+
+			.fake-field input {
+			  border: 0;
+			  width: 25%;
+			}
+
+			.fake-field input::inner-spin-button {
+			  display: none;
+			}
+
+			.fake-field input::-webkit-inner-spin-button {
+			  display: none;
+			}
+
+			.fake-field input::-moz-inner-spin-button {
+			  display: none;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<fieldset>
+			<legend>Enter three sets of four numbers</legend>
+			<div class="fake-field">
+				<label for="one">Set one</label>
+				<input type="number" id="one" name="one" data-auto-advance-to="two" maxlength="4" autofocus="autofocus" placeholder="1111" />
+				<label for="two">Set two</label>
+				<input type="number" id="two" name="two" maxlength="4" data-auto-advance-to="three"  placeholder="2222" />
+				<label for="two">Set three</label>
+				<input type="number" id="three" name="three" maxlength="4"  placeholder="3333"/>
+			</div>
+		</fieldset>
+		<fieldset>
+			<legend><b>Phone</b></legend>
+			<ol class="fake-field">
+				<li class="number tel-area-code">
+					<label for="gfc-tel-area-code">Area Code</label>
+					<input type="number" id="gfc-tel-area-code" name="phone-area-code"
+						length="3" maxlength="3" max="999"
+					 	data-auto-advance-to="gfc-tel-exchange" placeholder="212" />
+				</li>
+				<li class="number tel-exchange">
+					<label for="gfc-tel-exchange">Exchange</label>
+					<input type="number" id="gfc-tel-exchange" name="phone-exchange"
+						length="3" maxlength="3" max="999"
+					 	data-auto-advance-to="gfc-tel-subscriber" placeholder="555" />
+				</li>
+				<li class="number tel-subscriber">
+					<label for="gfc-tel-subscriber">Subscriber Number</label>
+					<input type="number" id="gfc-tel-subscriber" name="phone-subscriber"
+						length="4" maxlength="4" max="9999" placeholder="1212" />
+				</li>
+			</ol>
+		</fieldset>
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+		<script src="../src/jquery.easy-field-auto-advance.js" defer></script>
+	</body>
+</html>
